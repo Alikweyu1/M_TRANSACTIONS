@@ -14,6 +14,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    
+    
+    @IBAction func skipped(_ sender: Any) {
+        performSegue(withIdentifier: "skip", sender: self)
+    }
+   
 }
 

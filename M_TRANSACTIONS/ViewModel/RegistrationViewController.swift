@@ -8,6 +8,27 @@
 import UIKit
 
 class RegistrationViewController: UIViewController {
+    //createPassword
+    @IBOutlet weak var createPassword: UIView!
+    
+    
+    
+    //otpPage
+    @IBOutlet weak var otpPage: UIView!
+    
+    
+    @IBOutlet weak var txt1: UITextField!
+    @IBOutlet weak var txt2: UITextField!
+    @IBOutlet weak var txt3: UITextField!
+    @IBOutlet weak var txt4: UITextField!
+    @IBOutlet weak var otpView: UIView!
+    @IBOutlet weak var phoneLbl: UILabel!
+    
+    
+    
+    
+    
+    
     //contactPage
     @IBOutlet weak var contactPage: UIView!
     
@@ -47,17 +68,37 @@ class RegistrationViewController: UIViewController {
         super.viewDidLoad()
         tabledropDownHc.constant = 0
         self.contactPage.isHidden = true
+        self.otpPage.isHidden = true
+        self.createPassword.isHidden = true
         
     }
     
     @IBAction func personalext(_ sender: Any) {
         self.contactPage.isHidden = false
         self.personalpage.isHidden = true
+        self.otpPage.isHidden = true
+        self.createPassword.isHidden = true
     }
     
-   
+    @IBAction func contactTapped(_ sender: Any) {
+        print("taaped")
+        self.contactPage.isHidden = true
+        self.personalpage.isHidden = true
+        self.otpPage.isHidden = false
+        self.createPassword.isHidden = true
+    }
+    
+    @IBAction func otpresend(_ sender: Any) {
+        
+    }
     
     
+    @IBAction func otpNext(_ sender: Any) {
+        self.contactPage.isHidden = true
+        self.personalpage.isHidden = true
+        self.otpPage.isHidden = true
+        self.createPassword.isHidden = false
+    }
 }
 extension RegistrationViewController:UITableViewDelegate,UITextFieldDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

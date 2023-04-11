@@ -24,6 +24,10 @@
 		4B54E15F29DC0A6C00057675 /* DepositViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B54E15E29DC0A6C00057675 /* DepositViewController.swift */; };
 		4B54E16129DC0A7F00057675 /* TransactionChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B54E16029DC0A7F00057675 /* TransactionChartViewController.swift */; };
 		4B54E16329DC0B1600057675 /* OnbordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B54E16229DC0B1600057675 /* OnbordingViewController.swift */; };
+		4B54E18329DD379B00057675 /* textWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B54E18229DD379B00057675 /* textWidget.swift */; };
+		4B54E18629DD54F800057675 /* APIURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B54E18529DD54F800057675 /* APIURL.swift */; };
+		4B54E18829DD567500057675 /* UserRegistrationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B54E18729DD567500057675 /* UserRegistrationModule.swift */; };
+		4B54E18B29DD62BA00057675 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 4B54E18A29DD62BA00057675 /* Reachability */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +63,9 @@
 		4B54E15E29DC0A6C00057675 /* DepositViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositViewController.swift; sourceTree = "<group>"; };
 		4B54E16029DC0A7F00057675 /* TransactionChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionChartViewController.swift; sourceTree = "<group>"; };
 		4B54E16229DC0B1600057675 /* OnbordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbordingViewController.swift; sourceTree = "<group>"; };
+		4B54E18229DD379B00057675 /* textWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = textWidget.swift; sourceTree = "<group>"; };
+		4B54E18529DD54F800057675 /* APIURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURL.swift; sourceTree = "<group>"; };
+		4B54E18729DD567500057675 /* UserRegistrationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegistrationModule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B54E18B29DD62BA00057675 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +117,7 @@
 		4B54E14A29DC090900057675 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4B54E18729DD567500057675 /* UserRegistrationModule.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -116,6 +125,7 @@
 		4B54E14B29DC092400057675 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4B54E18129DD376F00057675 /* TextWidget */,
 				4B54E16429DC0B2100057675 /* Cells */,
 				4B54E14E29DC097500057675 /* MainPageViewController.swift */,
 				4B54E15029DC098600057675 /* LoginViewController.swift */,
@@ -135,6 +145,7 @@
 		4B54E14C29DC093300057675 /* ModelView */ = {
 			isa = PBXGroup;
 			children = (
+				4B54E18429DD54E200057675 /* Constant */,
 			);
 			path = ModelView;
 			sourceTree = "<group>";
@@ -144,6 +155,22 @@
 			children = (
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		4B54E18129DD376F00057675 /* TextWidget */ = {
+			isa = PBXGroup;
+			children = (
+				4B54E18229DD379B00057675 /* textWidget.swift */,
+			);
+			path = TextWidget;
+			sourceTree = "<group>";
+		};
+		4B54E18429DD54E200057675 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				4B54E18529DD54F800057675 /* APIURL.swift */,
+			);
+			path = Constant;
 			sourceTree = "<group>";
 		};
 		DD8055B92959B33FF77A2D0B /* Pods */ = {
@@ -170,6 +197,9 @@
 			dependencies = (
 			);
 			name = M_TRANSACTIONS;
+			packageProductDependencies = (
+				4B54E18A29DD62BA00057675 /* Reachability */,
+			);
 			productName = M_TRANSACTIONS;
 			productReference = 4B54E11F29DC073A00057675 /* M_TRANSACTIONS.app */;
 			productType = "com.apple.product-type.application";
@@ -198,6 +228,9 @@
 				Base,
 			);
 			mainGroup = 4B54E11629DC073A00057675;
+			packageReferences = (
+				4B54E18929DD62BA00057675 /* XCRemoteSwiftPackageReference "Reachability" */,
+			);
 			productRefGroup = 4B54E12029DC073A00057675 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -225,10 +258,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B54E18829DD567500057675 /* UserRegistrationModule.swift in Sources */,
 				4B54E15929DC09F600057675 /* TransactinViewController.swift in Sources */,
 				4B54E15F29DC0A6C00057675 /* DepositViewController.swift in Sources */,
 				4B54E15329DC09A000057675 /* RegistrationViewController.swift in Sources */,
 				4B54E14F29DC097500057675 /* MainPageViewController.swift in Sources */,
+				4B54E18629DD54F800057675 /* APIURL.swift in Sources */,
 				4B54E12729DC073B00057675 /* ViewController.swift in Sources */,
 				4B54E15B29DC0A1300057675 /* WithdrawViewController.swift in Sources */,
 				4B54E12329DC073A00057675 /* AppDelegate.swift in Sources */,
@@ -238,6 +273,7 @@
 				4B54E16129DC0A7F00057675 /* TransactionChartViewController.swift in Sources */,
 				4B54E12529DC073B00057675 /* SceneDelegate.swift in Sources */,
 				4B54E15529DC09B900057675 /* ResetPasswordViewController.swift in Sources */,
+				4B54E18329DD379B00057675 /* textWidget.swift in Sources */,
 				4B54E16329DC0B1600057675 /* OnbordingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +492,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4B54E18929DD62BA00057675 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4B54E18A29DD62BA00057675 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B54E18929DD62BA00057675 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4B54E11729DC073A00057675 /* Project object */;
 }

@@ -1,0 +1,25 @@
+{
+  "data" : [
+    {
+      "filename" : "sad 1.gif",
+      "idiom" : "universal",
+      "universal-type-identifier" : "com.compuserve.gif"
+    },
+    {
+      "filename" : "sad.gif",
+      "idiom" : "iphone"
+    },
+    {
+      "filename" : "sad 2.gif",
+      "idiom" : "ipad",
+      "universal-type-identifier" : "com.compuserve.gif"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "compression-type" : "automatic"
+  }
+}

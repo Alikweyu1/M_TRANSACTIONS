@@ -6,3 +6,9 @@
 //
 
 import Foundation
+enum APIURL {
+    enum API {
+    static let registrationUrl = "http://localhost:3001/registration"
+        static let otpURL =  "http://localhost:3001/otp"
+    }
+}

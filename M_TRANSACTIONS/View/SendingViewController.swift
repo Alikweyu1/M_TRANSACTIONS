@@ -1,13 +1,13 @@
 //
-//  SendViewController.swift
+//  SendingViewController.swift
 //  M_TRANSACTIONS
 //
-//  Created by SOFTWARE on 04/04/2023.
+//  Created by SOFTWARE on 08/04/2023.
 //
 
 import UIKit
 
-class SendViewController: UIViewController {
+class SendingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

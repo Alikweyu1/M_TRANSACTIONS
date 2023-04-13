@@ -31,12 +31,35 @@ struct UserDetails{
 struct balance{
     let amount:Float
 }
-
-struct userTransaction{
-    let transactionType:String
-    let transactionAmount:Float
-    let transactionDate:String
-    
+struct addTransaction:Codable{
+    var id:Int? = nil
+    var type:type
 }
+struct userTransaction:Codable{
+    var transactionType:transactionType
+   
+}
+
+struct transactionType:Codable{
+    var type:type
+    var transactioncode:String
+}
+
+struct type:Codable {
+    var type:String
+    var amount:Float
+    let date:String
+    var receivedby:account
+}
+struct account:Codable{
+    var phoneNumber:String? = nil
+    var tillNo:String? = nil
+    var paybill:paybillAcc? = nil
+}
+struct  paybillAcc:Codable{
+    var paybillNo:String? = nil
+    var account:String? = nil
+}
+
 
 

@@ -9,7 +9,7 @@ import UIKit
 
 @available(iOS 15.0, *)
 class MainPageViewController: UIViewController {
-    var isSegueInProgress = false
+    //var isSegueInProgress = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
@@ -18,6 +18,7 @@ class MainPageViewController: UIViewController {
     
 
     @IBAction func loginTaaped(_ sender: Any) {
+       
             let registration = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
             navigationController?.pushViewController(registration!, animated: true)
     }
@@ -28,7 +29,7 @@ class MainPageViewController: UIViewController {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "registration" {
-            isSegueInProgress = false
+            //isSegueInProgress = false
             // Add any necessary preparation code for the registration view controller
         }
     }

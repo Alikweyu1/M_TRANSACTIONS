@@ -8,7 +8,12 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
-
+    @IBOutlet weak var amount: UILabel!
+    var transactions:Transaction?{
+        didSet { // Property Observer
+            productDetailConfigurations()
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,6 +23,13 @@ class TableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    func  productDetailConfigurations(){
+        guard let transactions else {
+            return
+        }
+        self.amount.text =  "ksh \(transactions.transactionType)"
+       
     }
     
 }

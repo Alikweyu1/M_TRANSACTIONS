@@ -8,7 +8,11 @@
 import Foundation
 import UIKit
 class LineColor{
-   var lineColor = UIColor(red: 0.9098, green: 0.1961, blue: 0.9608, alpha: 1.0)
+   var lineColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+}
+struct Colors{
+    var lineColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+    var color:LineColor
 }
 extension  UIView {
     

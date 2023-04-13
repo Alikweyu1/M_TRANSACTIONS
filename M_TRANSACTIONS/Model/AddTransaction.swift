@@ -6,3 +6,12 @@
 //
 
 import Foundation
+struct deposit: Codable {
+    var type: typeofTransaction
+}
+struct typeofTransaction:Codable{
+    
+    var transactionType:transactionType
+}
+
+

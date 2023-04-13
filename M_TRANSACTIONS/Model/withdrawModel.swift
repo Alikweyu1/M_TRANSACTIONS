@@ -6,3 +6,9 @@
 //
 
 import Foundation
+struct withdrawsList:Codable {
+    let amount:Float
+    let name:String
+    let transactionCode:String
+    let date:String
+}

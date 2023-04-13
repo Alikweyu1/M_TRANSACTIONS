@@ -6,3 +6,8 @@
 //
 
 import Foundation
+enum Constant {
+    enum API {
+        static let TransactionURL = "http://localhost:3002/user"
+    }
+}

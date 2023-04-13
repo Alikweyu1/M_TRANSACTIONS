@@ -6,8 +6,8 @@ target 'M_TRANSACTIONS' do
   use_frameworks!
 
   # Pods for M_TRANSACTIONS
-pod 'LZViewPager', '~> 1.2.5'
-pod 'Charts'
-pod 'SwiftMessages'
-pod 'Kingfisher'
+#pod 'LZViewPager', '~> 1.2.5'
+
+#pod 'SwiftMessages'
+#pod 'Kingfisher'
 end

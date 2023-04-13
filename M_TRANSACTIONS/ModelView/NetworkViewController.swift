@@ -6,24 +6,27 @@
 //
 
 import UIKit
-
+import Reachability
 class NetworkViewController: UIViewController {
-
+    var reachability = try! Reachability()
+    @IBOutlet weak var gifImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        let ImageGIF = UIImage.gifImageWithName("sad")
+        self.gifImage.image = ImageGIF
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func retry(_ sender: Any) {
+        do{
+            self.reachability = try Reachability.init()
+        }catch{
+            print("fail to start notifier")
+        }
+        if((reachability.connection) != .unavailable){
+            self.dismiss(animated: true)
+        }
     }
-    */
+    
+    
 
 }

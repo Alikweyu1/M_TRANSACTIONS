@@ -9,11 +9,58 @@ import UIKit
 import Charts
 class TransactionsViewController: UIViewController {
     var menu_vc:MenuViewController!
+    var data: [[String:Any]] = [
+            [
+                "amount": 3000,
+                "date": "2023-03-13",
+                "name": "Nairobi Fashions",
+                "types": [
+                    "send": [
+                        "phoneNumber": "838348384"
+                    ]
+                ]
+            ],
+            [
+                "amount": 500,
+                "date": "2023-03-13",
+                "name": "Nairobi Fashions",
+                "types": [
+                    "recieved": [
+                        "phoneNumber": "838348384"
+                    ]
+                ]
+            ],
+            [
+                "amount": 500,
+                "date": "2023-03-13",
+                "name": "Nairobi Fashions",
+                "types": [
+                    "withdraw": [
+                        "AgentNumber": "838348384",
+                        "StoreNumber": "838348384",
+                        "name": "Ali"
+                    ]
+                ]
+            ],
+            [
+                "amount": 500,
+                "date": "2023-03-13",
+                "name": "Nairobi Fashions",
+                "types": [
+                    "deposit": [
+                        "AgentNumber": "838348384",
+                        "StoreNumber": "838348384",
+                        "name": "Ali"
+                    ]
+                ]
+            ]
+        ]
     @IBOutlet weak var test: UIBarButtonItem!
     @IBOutlet weak var transactionBtn: UIStackView!
     @IBOutlet weak var expenseIncomeView: UIView!
     @IBOutlet weak var transactionListView: UIView!
     var transaction:Transaction?
+    var trans:[Transaction] = []
     @IBOutlet weak var incomelbl: UIButton!
     //@IBOutlet weak var IncomeCHart: PieChartView!
     //@IBOutlet weak var IExpensesCHart: PieChartView!
@@ -197,6 +244,10 @@ extension TransactionsViewController:UITableViewDataSource{
 extension TransactionsViewController{
     
     func Charts(){
-  
+        var incomeChartDataEntries = [PieChartDataEntry]()
+        var expensesChartDataEntries = [PieChartDataEntry]()
+        
+    
     }
+
 }

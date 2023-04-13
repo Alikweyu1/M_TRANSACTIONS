@@ -43,8 +43,7 @@ struct userIDs:Codable{
     
 }
 struct AddWithdraw:Codable {
-    let agentNumber:String
-    let storeNimber:String
+    
     let amount:String
     let pin:String
 }
@@ -57,8 +56,16 @@ struct SentList:Codable{
     var sentType:sentType
 }
 struct sentType:Codable{
-    var phoneNumber:phone? = nil
-    var bank:BankInfo?  = nil
+    var phoneNumber:sentPhone? = nil
+    var bank:sentBank?  = nil
+}
+struct sentPhone:Codable{
+    var phoneNumber:String
+    var Name:String
+}
+struct sentBank:Codable{
+    var accountName:String? = nil
+    var accountNumber:String? = nil
 }
 
 struct deposited:Codable{

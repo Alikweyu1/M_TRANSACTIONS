@@ -35,13 +35,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         title = "M-TRANSACTION"
         self.navigationItem.title =  "M-TRANSACTION "
-    
+        let ImageGIF = UIImage.gifImageWithName("sad")
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = .horizontal
         slides = [
-            OnbordingSLide(title: "Main page", description: "testinggfgfdfffgcghgvjhvjhvhxxcjhbjhcfcjhvhgcchcfrses", images: UIImage(named:"image1" )!),
+            OnbordingSLide(title: "Easy Payment!!!", description: " No need of your wallet or your bank card, Use M_Transaction to pay as you go", images: UIImage.gifImageWithName("imageBorad1")!),
+            OnbordingSLide(title: "Security", description: "Your money is more secure,free from a malicious user", images: UIImage.gifImageWithName("secure")!),
+            
             OnbordingSLide(title: "Transaction", description: "testing", images: UIImage(named:"transactionlist" )!),
             OnbordingSLide(title: "WithDraw", description: "testing", images: UIImage(named:"withdraw" )!),
             OnbordingSLide(title: "WithDraw", description: "testing", images: UIImage(named:"withdraw" )!),

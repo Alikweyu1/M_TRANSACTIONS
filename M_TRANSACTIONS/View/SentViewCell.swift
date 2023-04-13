@@ -21,6 +21,7 @@ class SentViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        sendConfig()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,14 +37,14 @@ class SentViewCell: UITableViewCell {
         DispatchQueue.main.async {
             
             if (sentLists.sentType.phoneNumber != nil){
-                self.name.text = "Name" + "\(sentLists.sentType.phoneNumber!.Name)"
+                self.name.text = "\(sentLists.sentType.phoneNumber!.Name)"
                 self.amount.text = "Amount Ksh \(sentLists.amount)"
                 self.account.text = "Tel:" + "\(sentLists.sentType.phoneNumber!.phoneNumber)"
                 self.date.text = "Date:" + "\(sentLists.date)"
                 self.Ref.text = "Ref:" + "\(sentLists.transactionCode)"
                 
             }else if (sentLists.sentType.bank != nil){
-                self.name.text = "Bank name " + " " + "\(sentLists.sentType.bank!.accountName!)"
+                self.name.text = "\(sentLists.sentType.bank!.accountName!)"
                 self.amount.text = "Amount Ksh \(sentLists.amount)"
                 self.account.text = "AccountN0." + " " + "\( sentLists.sentType.bank!.accountNumber!)"
                 self.date.text = "Date:" + "\(sentLists.date)"

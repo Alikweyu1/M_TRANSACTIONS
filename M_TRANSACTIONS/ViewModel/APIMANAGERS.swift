@@ -20,12 +20,14 @@ final class APIMANAGERS{
     private init(){}
     func request<T:Codable>(
         modalType:T.Type,
+        
+        phoneNumber: String,
         type:EndPoints,completion:@escaping Handler<T>
     ){
-        guard let url = type.url else{
-            completion(.failure(.invalidUrl))
-            return
-        }
+        guard let url = type.endpointURL(phoneNumber: phoneNumber) else {
+                    completion(.failure(.invalidUrl))
+                    return
+                }
         var request = URLRequest(url: url)
         request.httpMethod = type.method.rawValue
         if let parameter = type.body{

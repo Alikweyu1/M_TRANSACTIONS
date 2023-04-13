@@ -18,10 +18,17 @@ enum UserEndpoint{
     
 }
 extension UserEndpoint:EndPoints{
+    func endpointURL(phoneNumber: String) -> URL? {
+        let urlString = "\(baseURL)\(path)?phone=\(phoneNumber)"
+                return URL(string: urlString)
+    }
+    
     
     
     var path: String {
+        let phone = "9958555"
         switch self{
+            
         case .transactionList:
             return "userTranaction"
         case .charts:
@@ -65,7 +72,7 @@ extension UserEndpoint:EndPoints{
     var url: URL? {
         switch self{
         case .transactionList:
-            return URL(string: "\(baseURL)\(path)")
+            return endpointURL(phoneNumber: "")
         case .charts:
             return URL(string: "\(baseURL)\(path)")
         case .addWithdraw:

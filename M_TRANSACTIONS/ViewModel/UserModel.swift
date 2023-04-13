@@ -15,7 +15,7 @@ final class UserModel{
     var eventHandler: ((_ event: Event) -> Void)?
     func fetchTransactions(){
         self.eventHandler?(.loading)
-        APIMANAGERS.shared.request(modalType: [Transaction].self, type: UserEndpoint.transactionList){ response in
+        APIMANAGERS.shared.request(modalType: [Transaction].self, phoneNumber: "", type: UserEndpoint.transactionList){ response in
             self.eventHandler?(.stopLoading)
             switch response{
                 
@@ -29,7 +29,7 @@ final class UserModel{
     }
     
     func addWithdraw(parameters:AddWithdraw) {
-        APIMANAGERS.shared.request(modalType: AddWithdraw.self, type: UserEndpoint.addWithdraw(addwithdraw: parameters)){ Result in
+        APIMANAGERS.shared.request(modalType: AddWithdraw.self, phoneNumber: "", type: UserEndpoint.addWithdraw(addwithdraw: parameters)){ Result in
             self.eventHandler?(.stopLoading)
             switch Result{
                 
@@ -42,7 +42,7 @@ final class UserModel{
     }
     func fetchwithdrawLists(){
         self.eventHandler?(.loading)
-        APIMANAGERS.shared.request(modalType: [withdrawsList].self, type: UserEndpoint.withdrawlist){ response in
+        APIMANAGERS.shared.request(modalType: [withdrawsList].self, phoneNumber: "gdgdgd", type: UserEndpoint.withdrawlist){ response in
             self.eventHandler?(.stopLoading)
             switch response{
                 
@@ -57,13 +57,15 @@ final class UserModel{
         
     }
     func fetchSentList() {
+        
         self.eventHandler?(.loading)
-        APIMANAGERS.shared.request(modalType: [SentList].self, type: UserEndpoint.sentList){ response in
+        APIMANAGERS.shared.request(modalType: [SentList].self, phoneNumber: "9393837", type: UserEndpoint.sentList){ response in
             self.eventHandler?(.stopLoading)
             switch response{
                 
             case .success(let sentLists):
                 self.sentLists = sentLists
+                self.eventHandler?(.dataLoaded)
             case .failure(let error):
                 self.eventHandler?(.error(error))
             }
@@ -72,7 +74,7 @@ final class UserModel{
     }
     func fetchDeposit(){
         self.eventHandler?(.loading)
-        APIMANAGERS.shared.request(modalType: [deposited].self, type: UserEndpoint.depositList){ response in
+        APIMANAGERS.shared.request(modalType: [deposited].self, phoneNumber: "73tt6t6te", type: UserEndpoint.depositList){ response in
             self.eventHandler?(.stopLoading)
             switch response{
                 
@@ -86,7 +88,7 @@ final class UserModel{
     }
     func addDeposit(parameters:deposited){
         self.eventHandler?(.loading)
-        APIMANAGERS.shared.request(modalType: deposited.self, type: UserEndpoint.addDeposit(addDeposit: parameters)){Result in
+        APIMANAGERS.shared.request(modalType: deposited.self, phoneNumber: "u7tet6re", type: UserEndpoint.addDeposit(addDeposit: parameters)){Result in
             self.eventHandler?(.stopLoading)
             switch Result{
                 
@@ -99,7 +101,7 @@ final class UserModel{
     }
     func FetchRevieved(){
         self.eventHandler?(.loading)
-        APIMANAGERS.shared.request(modalType: [Recieve].self, type: UserEndpoint.recieved){ response in
+        APIMANAGERS.shared.request(modalType: [Recieve].self, phoneNumber: "8585855", type: UserEndpoint.recieved){ response in
             self.eventHandler?(.stopLoading)
             switch response{
                 

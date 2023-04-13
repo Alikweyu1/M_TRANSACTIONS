@@ -6,9 +6,32 @@
 //
 
 import UIKit
-
+import AAInfographics
 class JSFunctionForAAAxisVC: UIViewController {
+        private var sectionTitleArr = [String]()
+        private var chartTypeTitleArr = [[String]]()
+        private var chartTypeArr = [[Any]]()
+        private var colorsArr = [
+            "#5470c6",
+            "#91cc75",
+            "#fac858",
+            "#ee6666",
+            "#73c0de",
+            "#3ba272",
+            "#fc8452",
+            "#9a60b4",
+            "#ea7ccc",
 
+            "#5470c6",
+            "#91cc75",
+            "#fac858",
+            "#ee6666",
+            "#73c0de",
+            "#3ba272",
+            "#fc8452",
+            "#9a60b4",
+            "#ea7ccc",
+        ]
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -16,14 +39,6 @@ class JSFunctionForAAAxisVC: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+

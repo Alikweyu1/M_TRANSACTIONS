@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "aachartkit-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AAChartModel/AAChartKit-Swift.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "8bd798ec722ff26fe9e248b6a1921e7626e2d7f6"
+      }
+    },
+    {
       "identity" : "charts",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/danielgindi/Charts",
@@ -10,12 +19,30 @@
       }
     },
     {
-      "identity" : "kingfisher",
+      "identity" : "iqkeyboardmanager",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/onevcat/Kingfisher",
+      "location" : "https://github.com/hackiftekhar/IQKeyboardManager",
       "state" : {
         "branch" : "master",
-        "revision" : "9375e4a0e5db3698c1f92bd5d1dc88b0b71caa8b"
+        "revision" : "0ea3febb36cfcec2afb5841fd8809a9c0fa545b3"
+      }
+    },
+    {
+      "identity" : "mbprogresshud",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jdg/MBProgressHUD",
+      "state" : {
+        "branch" : "master",
+        "revision" : "c843e4c86d320a11552898646effa8000042ab16"
+      }
+    },
+    {
+      "identity" : "parchment",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rechsteiner/Parchment.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "13aad3e9308e8a4e38cb579430dbf66465418777"
       }
     },
     {
@@ -25,6 +52,15 @@
       "state" : {
         "branch" : "master",
         "revision" : "a81b7367f2c46875f29577e03a60c39cdfad0c8d"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "58320fe80522414bf3a7e24c88123581dc586752"
       }
     },
     {

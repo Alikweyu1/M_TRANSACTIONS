@@ -6,40 +6,52 @@
 //
 
 import UIKit
-
+import MBProgressHUD
 class SendViewController: UIViewController {
-private var sendViewModel = UserModel()
+private var viewModel = UserModel()
     @IBOutlet weak var searchField: UISearchBar!
     @IBOutlet weak var sentListTable: UITableView!
     var filterDataString:[Any]!
     var isSearched = false
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.sentListTable.reloadData()
        config()
     }
     
     func config(){
         sentListTable.register(UINib(nibName: "SentViewCell", bundle: nil), forCellReuseIdentifier: "SentViewCell")
+        self.sentListTable.reloadData()
         initViewModel()
         obseverbleEvent()
     }
     
     func  initViewModel(){
-        self.sendViewModel.fetchSentList()
+        
+        self.viewModel.fetchSentList()
     }
     func obseverbleEvent(){
-        sendViewModel.eventHandler? = {[weak self] event in
+        
+        viewModel.eventHandler? = {[weak self] event in
             guard let self else{return}
     switch event{
                 
             case .loading:
-                print("sent list loading")
+        DispatchQueue.main.async {
+           
+            print("sent list loading")
+        }
+                
             case .stopLoading:
-                print("sent list stop loading")
+        DispatchQueue.main.async {
+           
+            print("sent list stop loading")
+        }
+               
             case .dataLoaded:
-                print("sent list loaded")
+                
                 DispatchQueue.main.async {
+                    
                     self.sentListTable.reloadData()
                 }
             case .error( let error):
@@ -58,7 +70,7 @@ extension SendViewController:UITableViewDataSource{
             return filterDataString.count
         }
         else{
-            return sendViewModel.sentLists.count
+            return viewModel.sentLists.count
         }
     }
     
@@ -70,7 +82,7 @@ extension SendViewController:UITableViewDataSource{
             let sendLists = filterDataString[indexPath.row]
             cell.sentLists = sendLists as? SentList
         }else{
-            let sendLists = sendViewModel.sentLists[indexPath.row]
+            let sendLists = viewModel.sentLists[indexPath.row]
             cell.sentLists = sendLists
         }
         return cell
@@ -80,11 +92,22 @@ extension SendViewController:UITableViewDataSource{
 }
 extension SendViewController:UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText != ""{
-            filterDataString = sendViewModel.sentLists.filter({$0.date.lowercased().uppercased().prefix(searchText.count) == searchText.lowercased().uppercased()})
+        
+        if searchText != " "{
+            searchBar.placeholder = "Search here"
+            let datePattern = "\\b\(searchText)\\b"
+            let dateRegex = try? NSRegularExpression(pattern: datePattern, options: .caseInsensitive)
+
+            filterDataString = viewModel.sentLists.filter({
+                dateRegex!.firstMatch(in: $0.date, options: [], range: NSRange(location: 0, length: $0.date.utf16.count)) != nil ||  $0.transactionCode.lowercased().contains(searchText.lowercased().uppercased())  || $0.sentType.bank?.accountName?.lowercased().contains(searchText.lowercased()) ?? false || $0.sentType.bank?.accountNumber?.lowercased().contains(searchText.lowercased()) ?? false || $0.sentType.phoneNumber?.phoneNumber.lowercased().contains(searchText.lowercased()) ?? false || $0.sentType.phoneNumber?.Name.lowercased().range(of: searchText, options: .caseInsensitive) != nil
+                
+            })
+        }else{
+            self.sentListTable.reloadData()
         }
         isSearched = true
         self.sentListTable.reloadData()
+        
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
@@ -92,4 +115,5 @@ extension SendViewController:UISearchBarDelegate{
         isSearched = false
         self.sentListTable.reloadData()
     }
+    
 }

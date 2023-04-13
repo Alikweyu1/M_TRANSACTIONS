@@ -17,4 +17,6 @@ protocol EndPoints {
     var method: HTTPMethods { get }
     var body: Encodable? { get }
     var headers: [String: String]? { get }
+    
+    func endpointURL(phoneNumber: String) -> URL?
 }

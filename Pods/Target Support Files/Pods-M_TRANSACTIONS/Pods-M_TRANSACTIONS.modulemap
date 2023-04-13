@@ -1,0 +1,6 @@
+framework module Pods_M_TRANSACTIONS {
+  umbrella header "Pods-M_TRANSACTIONS-umbrella.h"
+
+  export *
+  module * { export * }
+}

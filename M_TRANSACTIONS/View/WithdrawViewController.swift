@@ -6,13 +6,14 @@
 //
 
 import UIKit
-
+import MBProgressHUD
 class WithdrawViewController: UIViewController {
 private var viewModel = UserModel()
     var filterDataString:[Any]!
     var isSearched = false
     @IBOutlet weak var withdrawTable: UITableView!
     @IBOutlet weak var seachTxt: UISearchBar!
+    var loading = MBProgressHUD()
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -29,22 +30,38 @@ private var viewModel = UserModel()
         viewModel.fetchwithdrawLists()
     }
     func obserEvent(){
+        
+        let loader = MBProgressHUD.showAdded(to: self.view, animated: true)
+            loader.label.text = "Loading....."
+        
         viewModel.eventHandler = { [weak self] Events in
             guard let self else{return}
+            
+           
             switch Events{
                 
             case .loading:
+                DispatchQueue.main.async {
+                    loader.show(animated: true)
+                }
                 print("withdraw list loading.....")
+                
+                
             case .stopLoading:
-                print("send list lstopped loading.....")
+                DispatchQueue.main.async {
+                    loader.hide(animated: true)
+                    print("send list lstopped loading.....")
+                }
             case .dataLoaded:
                 DispatchQueue.main.async {
+                    loader.hide(animated: true)
                     self.withdrawTable.reloadData()
                 }
             case .error(let error):
                 print(error!)
             case .newWithdrawAdded(addwithdraw: let addwithdraw):
                 print(addwithdraw)
+                
             case .newDepopsitAdded(addDeposit: let addDeposit):
                 print(addDeposit)
             }

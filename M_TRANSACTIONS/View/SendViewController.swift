@@ -17,44 +17,58 @@ private var viewModel = UserModel()
         super.viewDidLoad()
         self.sentListTable.reloadData()
        config()
+        self.sentListTable.refreshControl = UIRefreshControl()
+        self.sentListTable.refreshControl?.addTarget(self, action: #selector(refreshDate), for: .valueChanged)
     }
     
     func config(){
         sentListTable.register(UINib(nibName: "SentViewCell", bundle: nil), forCellReuseIdentifier: "SentViewCell")
         self.sentListTable.reloadData()
         initViewModel()
-        obseverbleEvent()
+        observeEvents()
+    }
+    @objc private func refreshDate(){
+        self.viewModel.fetchSentList()
     }
     
     func  initViewModel(){
         
         self.viewModel.fetchSentList()
     }
-    func obseverbleEvent(){
-        
+    func observeEvents(listrefresh:Bool = true){
         viewModel.eventHandler? = {[weak self] event in
-            guard let self else{return}
     switch event{
                 
             case .loading:
+        print("sent list loading")
         DispatchQueue.main.async {
-           
-            print("sent list loading")
+            if listrefresh{
+                self?.sentListTable.refreshControl?.beginRefreshing()
+            }
+            
         }
                 
             case .stopLoading:
-        DispatchQueue.main.async {
-           
-            print("sent list stop loading")
+        print("sent list stop loading")
+        DispatchQueue.main.async { [self] in
+            if listrefresh{
+                self?.sentListTable.refreshControl?.endRefreshing()
+            }
         }
-               
             case .dataLoaded:
                 
-                DispatchQueue.main.async {
-                    
-                    self.sentListTable.reloadData()
+                DispatchQueue.main.async {[self ] in
+                    if listrefresh{
+                        self?.sentListTable.refreshControl?.endRefreshing()
+                    }
+                    DispatchQueue.main.async {
+                        self?.sentListTable.reloadData()
+                    }
                 }
             case .error( let error):
+        if listrefresh{
+            self?.sentListTable.refreshControl?.endRefreshing()
+        }
                 print(error)
             case .newWithdrawAdded(addwithdraw: let addwithdraw):
                 print(addwithdraw)

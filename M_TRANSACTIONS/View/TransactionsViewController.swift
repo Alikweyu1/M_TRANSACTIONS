@@ -9,52 +9,7 @@ import UIKit
 import Charts
 class TransactionsViewController: UIViewController {
     var menu_vc:MenuViewController!
-    var data: [[String:Any]] = [
-            [
-                "amount": 3000,
-                "date": "2023-03-13",
-                "name": "Nairobi Fashions",
-                "types": [
-                    "send": [
-                        "phoneNumber": "838348384"
-                    ]
-                ]
-            ],
-            [
-                "amount": 500,
-                "date": "2023-03-13",
-                "name": "Nairobi Fashions",
-                "types": [
-                    "recieved": [
-                        "phoneNumber": "838348384"
-                    ]
-                ]
-            ],
-            [
-                "amount": 500,
-                "date": "2023-03-13",
-                "name": "Nairobi Fashions",
-                "types": [
-                    "withdraw": [
-                        "AgentNumber": "838348384",
-                        "StoreNumber": "838348384",
-                        "name": "Ali"
-                    ]
-                ]
-            ],
-            [
-                "amount": 500,
-                "date": "2023-03-13",
-                "name": "Nairobi Fashions",
-                "types": [
-                    "deposit": [
-                        "AgentNumber": "838348384",
-                        "StoreNumber": "838348384",
-                        "name": "Ali"
-                    ]
-                ]
-            ]
-        ]
+    
     @IBOutlet weak var test: UIBarButtonItem!
     @IBOutlet weak var transactionBtn: UIStackView!
     @IBOutlet weak var expenseIncomeView: UIView!
@@ -85,6 +40,8 @@ class TransactionsViewController: UIViewController {
     private var viewModel = UserModel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.productTableViews.refreshControl = UIRefreshControl()
+        self.productTableViews.refreshControl?.addTarget(self, action: #selector(refreshDate), for: .valueChanged)
         menu_vc = storyboard?.instantiateViewController(withIdentifier:"MenuViewController") as? MenuViewController
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.responseGesture))
         rightSwipe .direction = UISwipeGestureRecognizer.Direction.right
@@ -121,7 +78,9 @@ class TransactionsViewController: UIViewController {
         self.transactionBtn.layer.shadowRadius = 10
         self.transactionBtn.layer.shadowOpacity = 1
     }
-    
+    @objc private func refreshDate(){
+        viewModel.fetchTransactions()
+    }
 
     @IBAction func withdraw(_ sender: Any) {
         self.performSegue(withIdentifier:"withdraw", sender: self.view)
@@ -187,16 +146,32 @@ extension TransactionsViewController{
     func  initModel(){
         viewModel.fetchTransactions()
     }
-    func observeEvents(){
+    func observeEvents(refreshing:Bool = true){
         viewModel.eventHandler = {[weak self] event in
             switch event{
                 
             case .loading:
                 print("Product loading....")
+                DispatchQueue.main.async { [self] in
+                    if refreshing{
+                        
+                        self?.productTableViews.refreshControl?.beginRefreshing()
+                    }
+                }
             case .stopLoading:
                 print("Stop loading...")
+                DispatchQueue.main.async { [self] in
+                    if refreshing{
+                        self?.productTableViews.refreshControl?.endRefreshing()
+                    }
+                }
             case .dataLoaded:
                 print("Data loaded...")
+                DispatchQueue.main.async { [self] in
+                    if refreshing{
+                        self?.productTableViews.refreshControl?.endRefreshing()
+                    }
+                }
                 DispatchQueue.main.async {
                     //self?.incomeTable.reloadData()
                     

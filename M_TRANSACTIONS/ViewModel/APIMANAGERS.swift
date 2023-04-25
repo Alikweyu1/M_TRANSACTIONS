@@ -28,6 +28,7 @@ final class APIMANAGERS{
                     completion(.failure(.invalidUrl))
                     return
                 }
+        
         var request = URLRequest(url: url)
         request.httpMethod = type.method.rawValue
         if let parameter = type.body{

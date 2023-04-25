@@ -111,3 +111,77 @@ struct OnbordingSLide{
     let description:String
     let images:UIImage
 }
+struct LoginApiData:Codable{
+    let status :String
+    let message:String
+    var data:DataLoginapiWitToken? = nil
+}
+struct DataLoginapiWitToken:Codable{
+    let token:String
+    let userPhoneNumber:String
+    let userEmail:String
+    
+}
+struct DataLogin:Codable{
+    let firstName:String
+
+    let middleName:String
+
+    let lastName:String
+
+    let dateOfBirth:String
+
+    let gender:String
+
+    let pin:String
+
+    let occupation:String
+
+    let permanentAddress:String
+
+    let currentAddress:String
+
+    let mobileNumber:String
+
+    let email:String
+
+    let pinCode:String
+
+    let city:String
+
+    let state:String
+
+    let country:String
+}
+struct checkPhone:Codable{
+    let status:Int
+}
+struct otp:Codable{
+    let status:Int
+}
+struct resetPin:Codable{
+    let status:Int
+    let message:String
+   var data:NewPasswordResponse? = nil
+}
+struct NewPasswordResponse:Codable{
+    let username:String
+    let email:String
+    let phoneNumber:String
+}
+struct menuTransfer:Codable{
+    let MTransfer:String
+    let Lipa:String
+    let PayBill:String
+    let Bank:String
+}
+struct MtransferApi:Codable{
+    let status:String
+    let message:String
+    let data:MtransferData? = nil
+}
+struct MtransferData:Codable{
+    let amount:Double
+    let RecievedBy:String
+}
+

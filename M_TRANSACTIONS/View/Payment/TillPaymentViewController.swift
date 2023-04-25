@@ -6,24 +6,96 @@
 //
 
 import UIKit
-
+import Reachability
 class TillPaymentViewController: UIViewController {
-
+    @IBOutlet weak var TransferView:UIView!
+    @IBOutlet weak var amount:UITextField!
+    @IBOutlet weak var TilNumber:UITextField!
+    @IBOutlet weak var pin:UITextField!
+    @IBOutlet weak var Transfer:UIButton!
+    @IBOutlet weak var TransferQR:UIButton!
+    var reachability = try? Reachability()
+    var fromPhone:String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+     Config()
+    }
+    @IBAction func closeQRTapped(_ sender:UIButton){
+        self.dismiss(animated: true)
+    }
+    @IBAction func TransferQRTapped(_ sender:UIButton){
+        
+    }
+    @IBAction func TransferTapped(_ sender:UIButton){
+        do{
+           let reachability = try Reachability.init()
+        }catch{
+            print("error on starting notifiar")
+        }
+        if((reachability?.connection) != .unavailable){
+            do{
+                let parameter = CreateParameter()
+                guard let url = URL(string: APIURL.API.Till) else{
+                    return
+                }
+                var request = URLRequest(url: url)
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content_Type")
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameter)
+                URLSession.shared.dataTask(with: request){(data,response,error) in
+                    if let error = error{
+                        print("check this error\(error.localizedDescription)")
+                    }else{
+                        let jsonData = try? JSONDecoder().decode(MtransferApi.self, from: data!)
+                        let status = jsonData?.status
+                        let message = jsonData?.message
+                        let amount = jsonData?.data?.amount
+                        let receivedby = jsonData?.data?.RecievedBy
+                    }
+                }.resume()
+            }catch{
+                print("error at \(error.localizedDescription)")
+            }
+        }else{
+            errorAlertMessage()
+        }
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+}
+extension TillPaymentViewController{
+    func Config(){
+        self.TransferView.layer.cornerRadius = 20
+        self.TransferView.layer.masksToBounds = true
+        self.TransferView.layer.shadowColor = UIColor.black.cgColor
+        self.TransferView.layer.shadowOpacity = 1
+      
+        self.amount.addBottomBorderLinewithColor(Color: .black, width: 1)
+        self.pin.addBottomBorderLinewithColor(Color: .black, width: 1)
+        self.TilNumber.addBottomBorderLinewithColor(Color: .black, width: 1)
     }
-    */
-
+    func CreateParameter()-> [String:Any]{
+        var transfer = [String:Any]()
+        transfer["amount"] = amount.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        transfer["userPhone"] = fromPhone
+        transfer["tillNumber"] = TilNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        transfer["pin"] = pin.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        return transfer
+    }
+    func errorAlertMessage(){
+        let alert = UIAlertController(title: "Error", message: "Something went wrong. Please check your internet connection and try again", preferredStyle: .alert)
+        let retry = UIAlertAction(title: "Retry", style: UIAlertAction.Style.cancel) { [weak self] _ in
+            guard let self = self else { return }
+            if self.reachability!.connection == .unavailable {
+                // do nothing, the alert stays on the screen
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        alert.addAction(retry)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }

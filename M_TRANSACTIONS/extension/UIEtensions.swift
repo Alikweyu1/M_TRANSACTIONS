@@ -16,4 +16,10 @@ extension UIView{
         self.layer.borderWidth = with
         self.layer.borderColor = color.cgColor
     }
+    class CircularTextField: UITextField {
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            layer.cornerRadius = bounds.width / 2
+        }
+    }
 }

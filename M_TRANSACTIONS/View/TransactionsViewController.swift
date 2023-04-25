@@ -37,6 +37,9 @@ class TransactionsViewController: UIViewController {
     var incomeChart: [Transaction] = []
     var expensesChart: [Transaction] = []
     var other: [Transaction] = []
+    
+    var phoneNumber:String?
+    var name:String?
     private var viewModel = UserModel()
     override func viewDidLoad() {
         super.viewDidLoad()

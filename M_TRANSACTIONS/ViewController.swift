@@ -7,8 +7,15 @@
 
 import UIKit
 import Charts
+class CircularTextField: UITextField {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = bounds.width / 2
+    }
+}
 class ViewController: UIViewController {
 
+    @IBOutlet weak var text: CircularTextField!
     @IBOutlet weak var nextbtn: UIButton!
     var timer :Timer?
     @IBOutlet weak var collectionView: UICollectionView!
@@ -29,10 +36,13 @@ class ViewController: UIViewController {
             }
         }
    
+    @IBOutlet weak var texFieldCircle: CircularTextField!
     @IBOutlet weak var next2: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //texFieldCircle.layer.cornerRadius = CGRectGetWidth(texFieldCircle.frame)/2
+        //texFieldCircle.layer.masksToBounds = true
         title = "M-TRANSACTION"
         self.navigationItem.title =  "M-TRANSACTION "
         let ImageGIF = UIImage.gifImageWithName("sad")
@@ -73,7 +83,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func skipped(_ sender: Any) {
-        performSegue(withIdentifier: "skip", sender: self)
+        let mvc = storyboard?.instantiateViewController(withIdentifier: "MainPageViewController") as? MainPageViewController
+        navigationController?.pushViewController(mvc!, animated: true)
+        present(mvc!, animated: true)
     }
    
     @IBAction func testintransaction(_ sender: Any) {

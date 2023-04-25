@@ -8,10 +8,11 @@
 import UIKit
 
 class TableViewController: UITableViewController {
-
+var menuTransfer = ["M-Transfer","Till","Paybill","Bank"]
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.title = "M-TRANSFER"
+        tableView.register(UINib(nibName: "MtransferTableViewCell", bundle: nil), forCellReuseIdentifier: "MtransferTableViewCell")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -21,26 +22,43 @@ class TableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
+    
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return  menuTransfer.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        guard let  cell = tableView.dequeueReusableCell(withIdentifier: "MtransferTableViewCell", for: indexPath) as? MtransferTableViewCell else{
+            return UITableViewCell()
+        }
+        let MtransferMenu = menuTransfer[indexPath.row]
+        cell.menuTransfer.text = MtransferMenu
         return cell
     }
-    */
-
+  
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 71
+    }
+    override  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row{
+        case 0:
+          performSegue(withIdentifier: "transfer", sender: self)
+          
+        case 1:
+            performSegue(withIdentifier: "tills", sender: self)
+        case 2:
+            performSegue(withIdentifier: "paybills", sender: self)
+        case 3:
+            performSegue(withIdentifier: "banks", sender: self)
+        
+            
+        default:
+            break
+        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

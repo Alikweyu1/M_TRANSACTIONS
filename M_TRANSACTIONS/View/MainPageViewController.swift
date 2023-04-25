@@ -21,11 +21,13 @@ class MainPageViewController: UIViewController {
        
             let registration = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
             navigationController?.pushViewController(registration!, animated: true)
+        present(registration!, animated: true)
     }
 
     @IBAction func registrationtapped(_ sender: Any) {
             let registration = storyboard?.instantiateViewController(withIdentifier: "RegistrationViewController") as? RegistrationViewController
             navigationController?.pushViewController(registration!, animated: true)
+        present(registration!, animated: true)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "registration" {

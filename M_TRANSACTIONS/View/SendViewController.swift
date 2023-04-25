@@ -17,59 +17,60 @@ private var viewModel = UserModel()
         super.viewDidLoad()
         self.sentListTable.reloadData()
        config()
+        
         self.sentListTable.refreshControl = UIRefreshControl()
         self.sentListTable.refreshControl?.addTarget(self, action: #selector(refreshDate), for: .valueChanged)
     }
     
     func config(){
         sentListTable.register(UINib(nibName: "SentViewCell", bundle: nil), forCellReuseIdentifier: "SentViewCell")
-        self.sentListTable.reloadData()
+       
         initViewModel()
         observeEvents()
     }
     @objc private func refreshDate(){
-        self.viewModel.fetchSentList()
+        DispatchQueue.main.async {
+            self.sentListTable.refreshControl?.endRefreshing()
+        }
+        self.sentListTable.reloadData()
+       
     }
     
     func  initViewModel(){
-        
+        DispatchQueue.main.async {
+            self.sentListTable.refreshControl?.endRefreshing()
+        }
         self.viewModel.fetchSentList()
+        
     }
-    func observeEvents(listrefresh:Bool = true){
-        viewModel.eventHandler? = {[weak self] event in
-    switch event{
+    func observeEvents(listrefresh:Bool = false){
+        DispatchQueue.main.async {
+            self.sentListTable.refreshControl?.endRefreshing()
+        }
+        viewModel.eventHandler? = { [weak self] events in
+            guard let self else{
+                return
+            }
+            switch events{
                 
             case .loading:
-        print("sent list loading")
-        DispatchQueue.main.async {
-            if listrefresh{
-                self?.sentListTable.refreshControl?.beginRefreshing()
-            }
-            
-        }
+                print("List is loading")
                 
             case .stopLoading:
-        print("sent list stop loading")
-        DispatchQueue.main.async { [self] in
-            if listrefresh{
-                self?.sentListTable.refreshControl?.endRefreshing()
-            }
-        }
+                print("Transaction list stopped")
             case .dataLoaded:
-                
-                DispatchQueue.main.async {[self ] in
-                    if listrefresh{
-                        self?.sentListTable.refreshControl?.endRefreshing()
-                    }
+                print("Transaction Loaded")
+                if listrefresh{
                     DispatchQueue.main.async {
-                        self?.sentListTable.reloadData()
+                        self.sentListTable.refreshControl?.endRefreshing()
                     }
                 }
-            case .error( let error):
-        if listrefresh{
-            self?.sentListTable.refreshControl?.endRefreshing()
-        }
-                print(error)
+                DispatchQueue.main.async {
+                    
+                    self.sentListTable.reloadData()
+                }
+            case .error(let error):
+                print(error?.localizedDescription)
             case .newWithdrawAdded(addwithdraw: let addwithdraw):
                 print(addwithdraw)
             case .newDepopsitAdded(addDeposit: let addDeposit):

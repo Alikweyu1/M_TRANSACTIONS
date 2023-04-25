@@ -134,7 +134,7 @@ class RegistrationViewController: UIViewController {
         }catch{
             print("notifier failed")
         }
-        if((reachability.connection) == .unavailable){
+        if((reachability.connection) != .unavailable){
             let parameters = otpParamater()
             guard let otpUrl = URL(string: APIURL.API.otpURL) else{return}
             var request = URLRequest(url: otpUrl)
@@ -218,13 +218,14 @@ class RegistrationViewController: UIViewController {
     
     @IBAction func createbuttonTapped(_ sender: Any) {
       let parameters = createParameters()
+        print(parameters)
         
         do{
             self.reachability = try Reachability.init()
         }catch{
             print ("fail to start notifier")
         }
-        if((reachability.connection) == .unavailable){
+        if((reachability.connection) != .unavailable){
             guard let url = URL(string: APIURL.API.registrationUrl) else{
                 print("check this error")
                 return
@@ -322,10 +323,10 @@ class RegistrationViewController: UIViewController {
         parameters["gender"] = genderSelection.currentTitle
         parameters["permanentAddress"] = PAddress.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         parameters["currentAddress"] = CAddress.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        parameters["areaofResident"] = Arear.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["city"] = Arear.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         parameters["pinCode"] = nationalId.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         parameters["state"] = county.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        
+        parameters["occupation"] = occupation.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         parameters["email"] = email.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         parameters["country"] = country .text?.trimmingCharacters(in: .whitespacesAndNewlines)
         var phoneNumber:String
@@ -338,7 +339,7 @@ class RegistrationViewController: UIViewController {
             phoneNumber = "254" + String(phoneNumber.dropFirst())
         }
         parameters["mobileNumber"] = phoneNumber
-        parameters["password"] = password.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["pin"] = password.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         return parameters
     }
     

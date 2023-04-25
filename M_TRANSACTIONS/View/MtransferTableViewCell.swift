@@ -8,7 +8,8 @@
 import UIKit
 
 class MtransferTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var menuTransfer:UILabel!
+    var menuTransfesr:menuTransfer?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

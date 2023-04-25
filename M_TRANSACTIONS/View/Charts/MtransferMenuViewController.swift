@@ -7,12 +7,26 @@
 
 import UIKit
 
-class MtransferMenuViewController: UITabBarController {
-
+class MtransferMenuViewController: UITabBarController,UITableViewDataSource,UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return mtransferMenu.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "MtransferTableViewCell", for: indexPath) as? MtransferTableViewCell
+        let transfermenu = mtransferMenu[indexPath.row]
+        cell?.menuTransfer.text = transfermenu
+        return cell!
+    }
+    
+    @IBOutlet weak var TableCell:UITableView!
+    let mtransferMenu = ["M-transfer","Till","Bank"]
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.TableCell.delegate = self
+        TableCell.dataSource = self
+        //TableCell.register(UINib(nibName: "MenuViewCell", bundle: nil), forCellReuseIdentifier: "MenuViewCell")
+      
     }
     
 

@@ -9,14 +9,20 @@ import UIKit
 
 class MenuViewController: UIViewController {
     //var menu_vc : TransactionsViewController!
+    var username = UserDefaults.standard.string(forKey: "username")
+    var balances = UserDefaults.standard.string(forKey: "balance")
     @IBOutlet weak var MenuTable: UITableView!
     @IBOutlet weak var name:UILabel!
+    @IBOutlet weak var balance:UILabel!
     @IBOutlet weak var Close: UIButton!
     @IBOutlet weak var Logount: UIButton!
+    @IBOutlet weak var UserName:UILabel!
     var title_array = ["Income","Expenses","Sent","Withdraw","Deposited","Recieved"]
     var menuHome : TransactionsViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.UserName.text = " Welcome \(username!) to M_TRANSACTION"
+        self.balance.text = "You balance is ksh\(balances!)"
         configs()
     }
     

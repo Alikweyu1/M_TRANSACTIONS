@@ -16,6 +16,7 @@ class TransferingViewController: UIViewController {
     @IBOutlet weak var Transfer:UIButton!
     @IBOutlet weak var TransferQR:UIButton!
     var fromPhone:String?
+    var token:String?
     let reachability = try? Reachability()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,16 +36,21 @@ configaration()
         }catch{
             print("error on starting notifiar")
         }
-        if((reachability?.connection) == .unavailable){
+        if((reachability?.connection) != .unavailable){
             do{
                 let parameter = CreateParameter()
+                print(parameter)
                 guard let url = URL(string: APIURL.API.MTransfer) else{
                     return
                 }
                 var request = URLRequest(url: url)
                 request.httpMethod = "POST"
-                request.setValue("application/json", forHTTPHeaderField: "Content_Type")
+                request.setValue("Application/Json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = try JSONSerialization.data(withJSONObject: parameter)
+                 token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTQ3MTYxOTg0ODciLCJpYXQiOjE2ODI0Mjc1MTYsImV4cCI6MTY4MjQyOTMxNn0.KwQbhnLukCi90adNs2yAJsSpYLRL7JJgtVEkG5weWsU"
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                request.setValue("Bearer  \(token!)", forHTTPHeaderField: "Authorization")
+
                 URLSession.shared.dataTask(with: request){(data,response,error) in
                     if let error = error{
                         print("check this error\(error.localizedDescription)")
@@ -78,9 +84,9 @@ extension TransferingViewController{
     }
     func CreateParameter()-> [String:Any]{
         var transfer = [String:Any]()
-        transfer["amount"] = amount.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        transfer["userPhone"] = fromPhone
-        transfer["ToPhone"] = PhoneNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        transfer["transactionAmount"] = amount.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        transfer["senderAccountNumber"] = "0716198487"
+        transfer["receiverAccountNumber"] = PhoneNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         transfer["pin"] = pin.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         return transfer
     }

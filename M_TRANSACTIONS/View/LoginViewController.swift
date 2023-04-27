@@ -9,6 +9,7 @@ import UIKit
 import Network
 import Reachability
 class LoginViewController: UIViewController,UITextFieldDelegate {
+    var names = UserDefaults.standard.string(forKey: "balance")
     var lineColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
     //otpView
     @IBOutlet weak var otpView: UIView!
@@ -53,12 +54,22 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     var phoneNumberReceived:String?
     @IBOutlet weak var phonelbl: UILabel!
     var reachability = try? Reachability()
+   var  usermodels = UserModels()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.forgetpasswordpage.isHidden = true
         self.otppage.isHidden = true
         self.createpasswordPage.isHidden = true
-        
+       
+       
+        print(names)
+        let uname = usermodels.Username
+        print(uname)
+        if UserDefaults.standard.string(forKey: "username") != nil{
+            let mvc = storyboard?.instantiateViewController(withIdentifier: "TransactionsViewController") as? TransactionsViewController
+            self.navigationController?.pushViewController(mvc!, animated: true)
+            self.present(mvc!, animated: true)
+        }
         title = "Welcome to M_Transaction"
         Designing()
     }
@@ -69,6 +80,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         self.otppage.isHidden = true
         self.createpasswordPage.isHidden = true
     }
+   
     @IBAction func createTapped(_ sender: Any) {
         do{
             let reachability = try? Reachability.init()
@@ -185,10 +197,13 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 return
             }
             var request = URLRequest(url: url)
+            //var token
             do{
                 request.httpMethod = "Post"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
+                //request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization") // Set the Authorization header with the token
+                    
                 URLSession.shared.dataTask(with:request){ (data,response,error) in
                     if let error = error{
                         print("check this error->\(error.localizedDescription)")
@@ -274,6 +289,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             let status = jsondata?.status
                             let message = jsondata?.message
                             let dataApi = jsondata?.data
+                            let apiToken = jsondata?.data?.token
+                            
                             print(jsondata)
                             if status == "1"{
                                 if dataApi != nil{
@@ -281,6 +298,18 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                         DispatchQueue.main.async {
                                             let alert = UIAlertController(title: "Successful", message:message, preferredStyle: .alert)
                                             let close = UIAlertAction(title: "Close",  style:UIAlertAction.Style.cancel,handler: { [self] action in
+                                                let UserLoginSession = UserModels()
+                                                UserLoginSession.token = apiToken
+                                                UserLoginSession.PhoneNumber = dataApi?.userPhoneNumber
+                                                UserLoginSession.Username = dataApi?.userName
+                                                UserLoginSession.balance =  dataApi?.balance
+                                                LoginSessionModel.shared.currentUser = UserLoginSession
+                                                let details = LoginSessionModel.shared.currentUser
+                                                UserDefaults.standard.set(details?.token, forKey: "token")
+                                                UserDefaults.standard.set(details?.balance, forKey: "balance")
+                                                UserDefaults.standard.set(details?.Username, forKey: "username")
+                                                UserDefaults.standard.set(details?.PhoneNumber, forKey: "phonenumber")
+                                                print(details)
                                                 self.performSegue(withIdentifier: "homepages", sender: self)
                                             })
                                             alert.addAction(close)

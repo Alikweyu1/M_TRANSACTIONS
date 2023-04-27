@@ -41,6 +41,7 @@
 		4B837F8B29E419920081C22D /* RecievedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B837F8A29E419920081C22D /* RecievedController.swift */; };
 		4B837F8E29E41D860081C22D /* RecievedListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B837F8C29E41D860081C22D /* RecievedListViewCell.swift */; };
 		4B837F8F29E41D860081C22D /* RecievedListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B837F8D29E41D860081C22D /* RecievedListViewCell.xib */; };
+		4B87487B29F7B3780045FA7C /* UserModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B87487A29F7B3780045FA7C /* UserModels.swift */; };
 		4B987C4329E1D63F000C3C00 /* SentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B987C4129E1D63F000C3C00 /* SentViewCell.swift */; };
 		4B987C4429E1D63F000C3C00 /* SentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B987C4229E1D63F000C3C00 /* SentViewCell.xib */; };
 		4B987C4629E1E323000C3C00 /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B987C4529E1E323000C3C00 /* SendViewController.swift */; };
@@ -124,6 +125,7 @@
 		4B837F8A29E419920081C22D /* RecievedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecievedController.swift; sourceTree = "<group>"; };
 		4B837F8C29E41D860081C22D /* RecievedListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecievedListViewCell.swift; sourceTree = "<group>"; };
 		4B837F8D29E41D860081C22D /* RecievedListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecievedListViewCell.xib; sourceTree = "<group>"; };
+		4B87487A29F7B3780045FA7C /* UserModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModels.swift; sourceTree = "<group>"; };
 		4B987C4129E1D63F000C3C00 /* SentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentViewCell.swift; sourceTree = "<group>"; };
 		4B987C4229E1D63F000C3C00 /* SentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SentViewCell.xib; sourceTree = "<group>"; };
 		4B987C4529E1E323000C3C00 /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				4B54E18729DD567500057675 /* UserRegistrationModule.swift */,
 				4B9BEEFD29E00DED00D81CC8 /* Transaction.swift */,
 				4B605E2129E1955A00DF4AE9 /* withdrawModel.swift */,
+				4B87487A29F7B3780045FA7C /* UserModels.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				4B837F8E29E41D860081C22D /* RecievedListViewCell.swift in Sources */,
 				4BC7496C29E56F7E00A597DE /* LZViewPagerContent.swift in Sources */,
 				4BE286CA29E04839000D49A2 /* EndPonts.swift in Sources */,
+				4B87487B29F7B3780045FA7C /* UserModels.swift in Sources */,
 				4B54E15F29DC0A6C00057675 /* DepositViewController.swift in Sources */,
 				4B987C4329E1D63F000C3C00 /* SentViewCell.swift in Sources */,
 				4BE286EA29E151B3000D49A2 /* addWithdrawViewController.swift in Sources */,

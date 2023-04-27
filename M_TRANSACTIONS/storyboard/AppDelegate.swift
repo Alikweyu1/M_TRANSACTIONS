@@ -16,8 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        check()
         return true
     }
+    func check(){
+        if UserDefaults.standard.value(forKey: "phonenumber") == nil{
+            let hv = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier:"TransactionsViewController" ) as! TransactionsViewController
+            let navVc = UINavigationController(rootViewController: hv)
+            let share = UIApplication.shared.delegate as? AppDelegate
+            share?.window?.rootViewController = navVc
+            share?.window?.makeKeyAndVisible()
+        }
+    }
+    
 
     // MARK: UISceneSession Lifecycle
 

@@ -60,7 +60,7 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var pnext: UIButton!
     @IBOutlet weak var personaldetails: UIView!
     var reachability = try! Reachability()
-    
+    var PhoneNumber:String?
     //pinc
     //var lineColor = UIColor(red: 0.9098, green: 0.1961, blue: 0.9608, alpha: 1.0)
     //green
@@ -103,9 +103,9 @@ class RegistrationViewController: UIViewController {
                 }else{
                         print("connected to the celluler")
                 }
-                self.view.window?.rootViewController?.dismiss(animated: true)
+                //self.view.window?.rootViewController?.dismiss(animated: true)
             }
-            self.reachability.whenReachable = { _ in
+            self.reachability.whenUnreachable = { _ in
                 print("no wifi connection")
                 if let networkVM = self.storyboard?.instantiateViewController(identifier: "NetworkViewController") as? NetworkViewController{
                     self.present(networkVM, animated: true)
@@ -178,7 +178,12 @@ class RegistrationViewController: UIViewController {
         
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let deviceVerification = segue.destination as? LoginViewController{
+            //deviceVerification.loginphone.text = PhoneFrom
+            
+        }
+        }
     @IBAction func otpNext(_ sender: Any) {
     networkCheck()
         let text1 = txt1.text!
@@ -240,25 +245,25 @@ class RegistrationViewController: UIViewController {
                 }else{
                     do{
                         //decode response from api
-                        if let json = try JSONSerialization.jsonObject(with: data!) as? [String:Any], let status = json["status"] as? Int {
-                            if status == 0 {
-                                let message = json["message"] as? String
+                        let json = try? JSONDecoder().decode(registrationApi.self, from: data!)
+                        var status = json?.status
+                        let message = json?.message
+                        let dataApi = json?.data
+                        if status == "1"{
+                            if data != nil {
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "Successfull", message: message, preferredStyle: .alert)
-                                    let OK = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel,handler: { action in
-                                        self.password.text = ""
-                                        self.confirmpassword.text = ""
-                                           
-                                        if let navigationController = self.navigationController {
-                                            for viewController in navigationController.viewControllers {
-                                                if let mainPageViewController = viewController as? MainPageViewController {
-                                                    navigationController.popToViewController(mainPageViewController, animated: true)
-                                                    break
-                                                }
-                                            }
-                                        }
+                                    self.PhoneNumber = json?.data?.phoneNumber
+                                    print(self.PhoneNumber)
+                                    var PhoneFrom = self.PhoneNumber
+                                    let alert = UIAlertController(title: "Successfull", message: "You have Successfull create account with M_TRANSACTION", preferredStyle: .actionSheet)
+                                    let continues = UIAlertAction(title: "Continue", style: UIAlertAction.Style.default,handler: { action in
+                                        self.performSegue(withIdentifier: "registrationLogin", sender: self)
                                     })
-                                    alert.addAction(OK)
+                                    let Close = UIAlertAction(title: "Close", style: UIAlertAction.Style.default,handler: { action in
+                                        self.dismiss(animated: true)
+                                    })
+                                    alert.addAction(continues)
+                                    alert.addAction(Close)
                                     self.present(alert, animated: true)
                                 }
                             }
@@ -274,7 +279,7 @@ class RegistrationViewController: UIViewController {
             let alert = UIAlertController(title: "Error", message: "Something went wrong. Please check your internet connection and try again", preferredStyle: .alert)
             let retry = UIAlertAction(title: "Retry", style: UIAlertAction.Style.default) { [weak self] _ in
                 guard let self = self else { return }
-                if self.reachability.connection == .unavailable {
+                if self.reachability.connection != .unavailable {
                     // do nothing, the alert stays on the screen
                 } else {
                     self.dismiss(animated: true, completion: nil)

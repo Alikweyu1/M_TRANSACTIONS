@@ -13,7 +13,11 @@ class MainPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
-        // Do any additional setup after loading the view.
+        if UserDefaults.standard.string(forKey: "username") != nil{
+            let mvc = storyboard?.instantiateViewController(withIdentifier: "TransactionsViewController") as? TransactionsViewController
+            self.navigationController?.pushViewController(mvc!, animated: true)
+            self.present(mvc!, animated: true)
+        }
     }
     
 

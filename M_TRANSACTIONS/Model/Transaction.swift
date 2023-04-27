@@ -114,12 +114,16 @@ struct OnbordingSLide{
 struct LoginApiData:Codable{
     let status :String
     let message:String
+   
+    
     var data:DataLoginapiWitToken? = nil
 }
 struct DataLoginapiWitToken:Codable{
-    let token:String
+     let token:String
     let userPhoneNumber:String
-    let userEmail:String
+    let userName:String
+    
+    let balance:Float
     
 }
 struct DataLogin:Codable{
@@ -178,10 +182,19 @@ struct menuTransfer:Codable{
 struct MtransferApi:Codable{
     let status:String
     let message:String
-    let data:MtransferData? = nil
+    var data:MtransferData? = nil
 }
 struct MtransferData:Codable{
     let amount:Double
     let RecievedBy:String
+}
+
+struct registrationApi:Codable{
+    let status:String
+    let message:String
+    var data:RegistratioData? = nil
+}
+struct RegistratioData:Codable{
+    let phoneNumber:String
 }
 

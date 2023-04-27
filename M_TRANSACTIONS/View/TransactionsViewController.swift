@@ -9,13 +9,14 @@ import UIKit
 import Charts
 class TransactionsViewController: UIViewController {
     var menu_vc:MenuViewController!
-    
+    @IBOutlet weak var balance:UILabel!
     @IBOutlet weak var test: UIBarButtonItem!
     @IBOutlet weak var transactionBtn: UIStackView!
     @IBOutlet weak var expenseIncomeView: UIView!
     @IBOutlet weak var transactionListView: UIView!
     var transaction:Transaction?
     var trans:[Transaction] = []
+ var balances = UserDefaults.standard.string(forKey: "balance")
     @IBOutlet weak var incomelbl: UIButton!
     //@IBOutlet weak var IncomeCHart: PieChartView!
     //@IBOutlet weak var IExpensesCHart: PieChartView!
@@ -42,6 +43,7 @@ class TransactionsViewController: UIViewController {
     var name:String?
     private var viewModel = UserModel()
     override func viewDidLoad() {
+        balance.text = "M-T Balance" + " " + "Ksh\(balances!)"
         super.viewDidLoad()
         self.productTableViews.refreshControl = UIRefreshControl()
         self.productTableViews.refreshControl?.addTarget(self, action: #selector(refreshDate), for: .valueChanged)

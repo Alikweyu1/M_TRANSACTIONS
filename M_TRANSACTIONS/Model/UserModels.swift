@@ -10,7 +10,7 @@ class UserModels{
     var Username:String?
     var PhoneNumber:String?
     var token:String?
-    var balance:Double?
+    var balance:Float?
 }
 class LoginSessionModel {
     static let shared = LoginSessionModel()

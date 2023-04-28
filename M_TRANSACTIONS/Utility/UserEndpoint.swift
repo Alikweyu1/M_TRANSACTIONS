@@ -30,7 +30,7 @@ extension UserEndpoint:EndPoints{
         switch self{
             
         case .transactionList:
-            return "userTranaction"
+            return "MList"
         case .charts:
             return ""
         case .addWithdraw:

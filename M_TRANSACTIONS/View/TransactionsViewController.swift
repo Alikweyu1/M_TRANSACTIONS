@@ -14,8 +14,8 @@ class TransactionsViewController: UIViewController {
     @IBOutlet weak var transactionBtn: UIStackView!
     @IBOutlet weak var expenseIncomeView: UIView!
     @IBOutlet weak var transactionListView: UIView!
-    var transaction:Transaction?
-    var trans:[Transaction] = []
+    var transaction:welcome2?
+    var trans:[welcome2] = []
  var balances = UserDefaults.standard.string(forKey: "balance")
     @IBOutlet weak var incomelbl: UIButton!
     //@IBOutlet weak var IncomeCHart: PieChartView!
@@ -35,14 +35,19 @@ class TransactionsViewController: UIViewController {
     var totalWithDraw = 0.0
     var totalIncome: Float = 0.0
     var totalExpenses: Float = 0.0
-    var incomeChart: [Transaction] = []
-    var expensesChart: [Transaction] = []
-    var other: [Transaction] = []
-    
+    var incomeChart: [welcome2] = []
+    var expensesChart: [welcome2] = []
+    var other: [welcome2] = []
+    var incomeList:welcome2?
     var phoneNumber:String?
     var name:String?
     private var viewModel = UserModel()
     override func viewDidLoad() {
+        viewModel.transactions.count
+       
+        incomeValue()
+        let token = UserDefaults.standard.string(forKey: "token")
+        print(token)
         balance.text = "M-T Balance" + " " + "Ksh\(balances!)"
         super.viewDidLoad()
         self.productTableViews.refreshControl = UIRefreshControl()
@@ -85,6 +90,7 @@ class TransactionsViewController: UIViewController {
     }
     @objc private func refreshDate(){
         viewModel.fetchTransactions()
+        viewModel.transList()
     }
 
     @IBAction func withdraw(_ sender: Any) {
@@ -149,7 +155,8 @@ extension TransactionsViewController{
         observeEvents()
     }
     func  initModel(){
-        viewModel.fetchTransactions()
+        //viewModel.fetchTransactions()
+        viewModel.transList()
     }
     func observeEvents(refreshing:Bool = true){
         viewModel.eventHandler = {[weak self] event in
@@ -207,7 +214,9 @@ extension TransactionsViewController{
 }
 extension TransactionsViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       
         viewModel.transactions.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -216,6 +225,8 @@ extension TransactionsViewController:UITableViewDataSource{
         }
         let transaction = viewModel.transactions[indexPath.row]
         cell.transaction = transaction
+        
+        incomelbl.setTitle("\(transaction.data2.totalIncome)", for: .normal)
         return cell
     }
     
@@ -229,5 +240,16 @@ extension TransactionsViewController{
         
     
     }
-
+    func incomeValue(){
+        if ((transaction?.data2.totalIncome) == nil){
+            incomelbl.setTitle("Ksh\(0)", for: .normal)
+        }else{
+            incomelbl.setTitle("\(transaction!.data2.totalIncome)", for: .normal)
+        }
+        if ((transaction?.data2.totalExpense) == nil){
+            expenseLbl.setTitle("Ksh\(0)", for: .normal)
+        }else{
+            expenseLbl.setTitle("\(transaction!.data2.totalExpense)", for: .normal)
+        }
+    }
 }

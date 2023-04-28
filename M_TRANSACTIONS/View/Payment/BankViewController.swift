@@ -10,7 +10,8 @@ import Reachability
 class BankViewController: UIViewController {
     @IBOutlet weak var TransferView:UIView!
     @IBOutlet weak var amount:UITextField!
-   
+    var tokens = UserDefaults.standard.string(forKey: "token")
+    var Mobile = UserDefaults.standard.string(forKey: "phonenumber")
     @IBOutlet weak var ToBankAccount:UITextField!
     @IBOutlet weak var pin:UITextField!
     @IBOutlet weak var Transfer:UIButton!
@@ -80,7 +81,8 @@ extension BankViewController{
     func CreateParameter()-> [String:Any]{
         var transfer = [String:Any]()
         transfer["amount"] = amount.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        transfer["userPhone"] = fromPhone
+        transfer["userPhone"] = Mobile
+        transfer["token"] = tokens
         transfer["FromAccount"] = bankAccount
         transfer["accountNumber"] = ToBankAccount.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         transfer["pin"] = pin.text?.trimmingCharacters(in: .whitespacesAndNewlines)

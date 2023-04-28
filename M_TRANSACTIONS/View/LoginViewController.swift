@@ -54,6 +54,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     var phoneNumberReceived:String?
     @IBOutlet weak var phonelbl: UILabel!
     var reachability = try? Reachability()
+    var OTPValidate:String?
    var  usermodels = UserModels()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,8 +107,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             let status = jsondata?.status
                             let message = jsondata?.message
                             let dataJson = jsondata?.data
-                            print(jsondata)
-                            if status == 1{
+                            print(message)
+                            if status == "1"{
                                 DispatchQueue.main.async {
                                     let alert = UIAlertController(title: "Congradulation!!", message: "You have successful changed your pin", preferredStyle: .alert)
                                     let close = UIAlertAction(title: "Close",  style:UIAlertAction.Style.cancel,handler: { [self] action in
@@ -153,9 +154,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 text4.becomeFirstResponder()
             }
             if textField == text4{
-                text4.resignFirstResponder()
+                
                 self.loginpage.isHidden = true
-                self.createpasswordPage.isHidden = false
+                
+                text4.resignFirstResponder()
+                
+                
                 
             }
             textField.text = string
@@ -192,7 +196,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             print("fail to start notifier")
         }
         if ((reachability?.connection) != nil){
-            let parameters = Validation()
+            let parameters = OtpValidation()
             guard let url = URL(string: APIURL.API.checkPhone) else{
                 return
             }
@@ -202,7 +206,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 request.httpMethod = "Post"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
-                //request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization") // Set the Authorization header with the token
+                //request.setValue("Bearer " + tokens, forHTTPHeaderField: "Authorization") // Set the Authorization header with the token
                     
                 URLSession.shared.dataTask(with:request){ (data,response,error) in
                     if let error = error{
@@ -211,9 +215,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         do{
                             var jsondata = try? JSONDecoder().decode(checkPhone.self, from: data!)
                             var status = jsondata?.status
-                            
+                            let otp = jsondata?.data?.otp
                             print(jsondata)
-                            if status == 1{
+                            if status == "1"{
                                 DispatchQueue.main.async { [self] in
                                     self.forgetpasswordpage.isHidden = true
                                     self.loginpage.isHidden = true
@@ -221,7 +225,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                     self.createpasswordPage.isHidden = true
                                     phonelbl.text = forgetPhonenumber.text
                                     phoneNumberReceived = forgetPhonenumber.text
-                                    
+                                    DispatchQueue.main.async {
+                                        self.OTPValidate = otp
+                                    }
                                 }
                             }else{
                                 
@@ -240,7 +246,33 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func resetpassword(_ sender: Any) {
         
-        
+        let texts1 =  txt1.text!
+        let texts2 =  text2.text!
+        let texts3 =  text3.text!
+        let texts4 =  text4.text!
+       
+        let combine = texts1 + texts2 + texts3 + texts4
+        print("\(combine)")
+        let otpValue = OTPValidate
+        if combine == otpValue{
+            txt1.text = ""
+            text2.text = ""
+            text3.text = ""
+            text4.text = ""
+            self.createpasswordPage.isHidden = false
+        }else{
+            let alert = UIAlertController(title: "Oops", message: "OTP is not correct", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.cancel,handler: { [self] action in
+                txt1.text = ""
+                text2.text = ""
+                text3.text = ""
+                text4.text = ""
+                txt1.becomeFirstResponder()
+                self.loginpage.isHidden = false
+                self.createpasswordPage.isHidden = true
+            }))
+            present(alert, animated: true)
+        }
         
     }
     override func willChangeValue(forKey key: String) {
@@ -298,7 +330,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                         DispatchQueue.main.async {
                                             let alert = UIAlertController(title: "Successful", message:message, preferredStyle: .alert)
                                             let close = UIAlertAction(title: "Close",  style:UIAlertAction.Style.cancel,handler: { [self] action in
-                                                let UserLoginSession = UserModels()
+                                                var UserLoginSession = UserModels()
                                                 UserLoginSession.token = apiToken
                                                 UserLoginSession.PhoneNumber = dataApi?.userPhoneNumber
                                                 UserLoginSession.Username = dataApi?.userName
@@ -309,7 +341,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                                 UserDefaults.standard.set(details?.balance, forKey: "balance")
                                                 UserDefaults.standard.set(details?.Username, forKey: "username")
                                                 UserDefaults.standard.set(details?.PhoneNumber, forKey: "phonenumber")
-                                                print(details)
+                                                
                                                 self.performSegue(withIdentifier: "homepages", sender: self)
                                             })
                                             alert.addAction(close)
@@ -390,10 +422,22 @@ extension LoginViewController{
        
         return parameters
     }
+    func OtpValidation() ->[String:Any]{
+        var parameters = [String: Any]()
+        
+        
+            //phoneNumber = loginphone.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["phoneNumber"] = forgetPhonenumber.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+            //parameters["pin"] = loginpassword.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+     
+       
+        return parameters
+    }
     func createNewPin() ->[String:Any]{
         var parameters = [String: Any]()
         parameters["pin"] = password1.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        parameters["phone"] = forgetPhonenumber.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["phoneNumber"] = forgetPhonenumber.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         return parameters
     }
 }

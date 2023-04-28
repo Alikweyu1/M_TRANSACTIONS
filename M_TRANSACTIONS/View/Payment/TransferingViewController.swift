@@ -15,6 +15,8 @@ class TransferingViewController: UIViewController {
     @IBOutlet weak var pin:UITextField!
     @IBOutlet weak var Transfer:UIButton!
     @IBOutlet weak var TransferQR:UIButton!
+    var tokens = UserDefaults.standard.string(forKey: "token")
+    var Mobile = UserDefaults.standard.string(forKey: "phonenumber")
     var fromPhone:String?
     var token:String?
     let reachability = try? Reachability()
@@ -37,7 +39,13 @@ configaration()
             print("error on starting notifiar")
         }
         if((reachability?.connection) != .unavailable){
+            let transparentBlack = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+            let loadingindicator = MBProgressHUD.showAdded(to: self.view, animated: true)
+            loadingindicator.backgroundColor = transparentBlack
+            loadingindicator.label.text = "Wait....."
             do{
+               
+                
                 let parameter = CreateParameter()
                 print(parameter)
                 guard let url = URL(string: APIURL.API.MTransfer) else{
@@ -47,22 +55,53 @@ configaration()
                 request.httpMethod = "POST"
                 request.setValue("Application/Json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = try JSONSerialization.data(withJSONObject: parameter)
-                 token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTQ3MTYxOTg0ODciLCJpYXQiOjE2ODI0Mjc1MTYsImV4cCI6MTY4MjQyOTMxNn0.KwQbhnLukCi90adNs2yAJsSpYLRL7JJgtVEkG5weWsU"
+                 token = tokens
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
                 request.setValue("Bearer  \(token!)", forHTTPHeaderField: "Authorization")
 
                 URLSession.shared.dataTask(with: request){(data,response,error) in
+                   
+                    
+                  
+                   
                     if let error = error{
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "Fail", message: error.localizedDescription, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel,handler: { action in
+                                loadingindicator.hide(animated: true)
+                            }))
+                           
+                        }
                         print("check this error\(error.localizedDescription)")
                     }else{
+                        DispatchQueue.main.async { [self] in
+                            amount.text = ""
+                            PhoneNumber.text = ""
+                            pin.text = ""
+                            loadingindicator.hide(animated: true)
+                        }
                         let jsonData = try? JSONDecoder().decode(MtransferApi.self, from: data!)
                         let status = jsonData?.status
                         let message = jsonData?.message
-                        let amount = jsonData?.data?.amount
+                        //let amount = jsonData?.data?.amount
                         let receivedby = jsonData?.data?.RecievedBy
+                        DispatchQueue.main.async {
+                            let alart = UIAlertController(title: "Successful!!", message:" ksh\(self.amount.text!) was successful transfered to \(self.PhoneNumber.text!)",  preferredStyle: .alert)
+                            alart.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel,handler: { action in
+                                
+                            }))
+                        }
+                        
                     }
                 }.resume()
             }catch{
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Fail", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel,handler: { action in
+                        loadingindicator.hide(animated: true)
+                    }))
+                   
+                }
                 print("error at \(error.localizedDescription)")
             }
         }else{
@@ -84,10 +123,12 @@ extension TransferingViewController{
     }
     func CreateParameter()-> [String:Any]{
         var transfer = [String:Any]()
+        _ = UserDefaults.standard.string(forKey: "token")
         transfer["transactionAmount"] = amount.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        transfer["senderAccountNumber"] = "0716198487"
+        transfer["senderAccountNumber"] = Mobile
         transfer["receiverAccountNumber"] = PhoneNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         transfer["pin"] = pin.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        transfer["token"] = tokens
         return transfer
     }
     func errorAlertMessage(){

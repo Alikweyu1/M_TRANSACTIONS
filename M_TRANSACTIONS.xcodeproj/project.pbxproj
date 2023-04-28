@@ -49,6 +49,9 @@
 		4B9BEEFA29E0024900D81CC8 /* APIMANAGERS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9BEEF929E0024900D81CC8 /* APIMANAGERS.swift */; };
 		4B9BEEFC29E0056500D81CC8 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9BEEFB29E0056500D81CC8 /* Constant.swift */; };
 		4B9BEEFE29E00DED00D81CC8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9BEEFD29E00DED00D81CC8 /* Transaction.swift */; };
+		4B9CE6CE29FA967C008B3ED7 /* AllTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9CE6CD29FA967C008B3ED7 /* AllTransactionViewController.swift */; };
+		4B9CE6D029FA96EA008B3ED7 /* chartJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9CE6CF29FA96EA008B3ED7 /* chartJson.swift */; };
+		4B9CE6D229FA972B008B3ED7 /* TransactionCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9CE6D129FA972B008B3ED7 /* TransactionCharts.swift */; };
 		4BB157EB29F43CBD0063AE6A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB157EA29F43CBD0063AE6A /* HomeViewController.swift */; };
 		4BC7495829E4AA4700A597DE /* BankDepositViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC7495729E4AA4700A597DE /* BankDepositViewController.swift */; };
 		4BC7495A29E4AA6600A597DE /* MTransactionSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC7495929E4AA6600A597DE /* MTransactionSendViewController.swift */; };
@@ -134,6 +137,9 @@
 		4B9BEEF929E0024900D81CC8 /* APIMANAGERS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMANAGERS.swift; sourceTree = "<group>"; };
 		4B9BEEFB29E0056500D81CC8 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		4B9BEEFD29E00DED00D81CC8 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		4B9CE6CD29FA967C008B3ED7 /* AllTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTransactionViewController.swift; sourceTree = "<group>"; };
+		4B9CE6CF29FA96EA008B3ED7 /* chartJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chartJson.swift; sourceTree = "<group>"; };
+		4B9CE6D129FA972B008B3ED7 /* TransactionCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCharts.swift; sourceTree = "<group>"; };
 		4BB157EA29F43CBD0063AE6A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4BC7495729E4AA4700A597DE /* BankDepositViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankDepositViewController.swift; sourceTree = "<group>"; };
 		4BC7495929E4AA6600A597DE /* MTransactionSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTransactionSendViewController.swift; sourceTree = "<group>"; };
@@ -225,6 +231,7 @@
 				4B54E12B29DC073C00057675 /* Assets.xcassets */,
 				4B54E12D29DC073C00057675 /* LaunchScreen.storyboard */,
 				4B54E13029DC073C00057675 /* Info.plist */,
+				4B9CE6CD29FA967C008B3ED7 /* AllTransactionViewController.swift */,
 			);
 			path = M_TRANSACTIONS;
 			sourceTree = "<group>";
@@ -236,6 +243,8 @@
 				4B9BEEFD29E00DED00D81CC8 /* Transaction.swift */,
 				4B605E2129E1955A00DF4AE9 /* withdrawModel.swift */,
 				4B87487A29F7B3780045FA7C /* UserModels.swift */,
+				4B9CE6CF29FA96EA008B3ED7 /* chartJson.swift */,
+				4B9CE6D129FA972B008B3ED7 /* TransactionCharts.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -521,6 +530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BC7496429E5222300A597DE /* IncomeChartViewCell.swift in Sources */,
+				4B9CE6D229FA972B008B3ED7 /* TransactionCharts.swift in Sources */,
 				4B54E18829DD567500057675 /* UserRegistrationModule.swift in Sources */,
 				4B9BEEFC29E0056500D81CC8 /* Constant.swift in Sources */,
 				4B837F8E29E41D860081C22D /* RecievedListViewCell.swift in Sources */,
@@ -539,6 +549,7 @@
 				4B54E12729DC073B00057675 /* ViewController.swift in Sources */,
 				4BF0BBF329F5533A00AC902A /* TableViewController.swift in Sources */,
 				4BF0BBF829F55D7900AC902A /* TillPaymentViewController.swift in Sources */,
+				4B9CE6CE29FA967C008B3ED7 /* AllTransactionViewController.swift in Sources */,
 				4B54E18D29DD8ECA00057675 /* NetworkViewController.swift in Sources */,
 				4BC749A729E598B600A597DE /* JSFunctionForAAAxisVC.swift in Sources */,
 				4BC7495C29E4AA8500A597DE /* MpesaDepositViewController.swift in Sources */,
@@ -577,6 +588,7 @@
 				4B54E19129DD9C2200057675 /* gitGIF.swift in Sources */,
 				4B837F7729E331DE0081C22D /* OnboardingCollectionViewCell.swift in Sources */,
 				4BF0BBFA29F55D8D00AC902A /* PaybillViewController.swift in Sources */,
+				4B9CE6D029FA96EA008B3ED7 /* chartJson.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,7 @@ class IncomeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var expenses: UILabel!
     @IBOutlet weak var income: UILabel!
-    var transaction:Transaction?{
+    var transaction:welcome2?{
         didSet{
             transactionDetailConfiguration()
         }
@@ -30,7 +30,7 @@ class IncomeTableViewCell: UITableViewCell {
         guard let transaction else{return}
         print(transaction)
         DispatchQueue.main.async {
-            self.income.text = transaction.name
+            self.income.text = "\(transaction.data2.totalIncome)"
         }
     }
     

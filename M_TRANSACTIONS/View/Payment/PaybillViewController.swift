@@ -15,6 +15,8 @@ class PaybillViewController: UIViewController {
     @IBOutlet weak var pin:UITextField!
     @IBOutlet weak var Transfer:UIButton!
     @IBOutlet weak var TransferQR:UIButton!
+    var tokens = UserDefaults.standard.string(forKey: "token")
+    var Mobile = UserDefaults.standard.string(forKey: "phonenumber")
     var reachability = try? Reachability()
     var fromPhone:String?
     override func viewDidLoad() {
@@ -80,7 +82,8 @@ extension PaybillViewController{
     func CreateParameter()-> [String:Any]{
         var transfer = [String:Any]()
         transfer["amount"] = amount.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        transfer["userPhone"] = fromPhone
+        transfer["token"] = tokens
+        transfer["userPhone"] = Mobile
         transfer["paybilNumber"] = PaybilNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         transfer["accountNumber"] = Account.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         transfer["pin"] = pin.text?.trimmingCharacters(in: .whitespacesAndNewlines)

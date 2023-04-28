@@ -14,6 +14,7 @@ struct Transaction: Codable {
     var  types:types
     var name:String
 }
+
 struct types:Codable{
     var types:String? = nil
     var send:Send? = nil
@@ -158,13 +159,19 @@ struct DataLogin:Codable{
     let country:String
 }
 struct checkPhone:Codable{
-    let status:Int
+    let status:String
+    let message:String
+    
+    var data:DataApi? = nil
+}
+struct DataApi:Codable{
+    let otp:String
 }
 struct otp:Codable{
     let status:Int
 }
 struct resetPin:Codable{
-    let status:Int
+    let status:String
     let message:String
    var data:NewPasswordResponse? = nil
 }
@@ -197,4 +204,82 @@ struct registrationApi:Codable{
 struct RegistratioData:Codable{
     let phoneNumber:String
 }
+struct Mtransactions2:Codable{
+    var status:String? = nil
+    var message:String?  = nil
+    var data2:Data2? = nil
+    var data:dataType? = nil
+   
+}
+struct dataType:Codable{
+    var transactionType:String?  = nil
+    var TransactionDate:String?  = nil
+    var receiverAccount:String?  = nil
+    var referenceCode:String?  = nil
+    var TransactionAmount:Double?  = nil
+}
+struct Data2:Codable{
+    var totalIncome:Double?  = nil
+    var totalExpense:Double?  = nil
+}
+struct Transactions: Codable {
+    let transactionType: String
+    let transactionAmount: Double
+    let receiverAccount: String
+    let transactionDate: String
+    let referenceCode: String
+}
 
+struct TransactionData:Codable {
+    let totalIncome: Double
+    let totalExpense: Double
+}
+
+struct TransactionResponses:Codable {
+    let status: String
+    let message: String
+    let data2: TransactionData
+    let data: [Transactions]
+}
+struct Welcome:Codable {
+    let status:String
+     let   message: String
+    let data2: Datas2
+    let data: [Datum]
+}
+
+
+struct Datum: Codable {
+    let transactionType: String
+    let transactionAmount: Double
+    let receiverAccount, transactionDate, referenceCode: String
+}
+
+
+struct Datas2:Codable {
+    let totalIncome: Double
+    let totalExpense: Double
+}
+struct welcome2:Codable{
+    let status:String
+    let message:String
+    var data2:dataIncome
+    var data:[MainData]
+}
+struct dataIncome:Codable{
+    let totalIncome:Double
+    let totalExpense:Double
+}
+struct MainData:Codable{
+let transactionType:String
+
+    let transactionAmount:Double
+
+    let receiverAccount:String
+
+    let transactionDate:String
+
+    let referenceCode:String
+
+ 
+}

@@ -59,18 +59,39 @@ extension MenuViewController:UITableViewDataSource,UITableViewDelegate{
         switch indexPath.row{
         case 0:
            print("0")
-          
+           
+                
         case 1:
             print("1")
         case 2:
-            print("2")
+            if let mainPage = storyboard?.instantiateViewController(withIdentifier: "SendViewController") as? SendViewController{
+                navigationController?.pushViewController(mainPage, animated: true)
+                if let homeVC = self.presentingViewController as? TransactionsViewController {
+                                homeVC.closeMenu()
+                            }
+            }
         case 3:
-            print("3")
+            if let mainPage = storyboard?.instantiateViewController(withIdentifier: "WithdrawViewController") as? WithdrawViewController{
+                navigationController?.pushViewController(mainPage, animated: true)
+                if let homeVC = self.presentingViewController as? TransactionsViewController {
+                                homeVC.closeMenu()
+                            }
+            }
         case 4:
-            print("4")
+            if let mainPage = storyboard?.instantiateViewController(withIdentifier: "DepositViewController") as? DepositViewController{
+                navigationController?.pushViewController(mainPage, animated: true)
+                if let homeVC = self.presentingViewController as? TransactionsViewController {
+                                homeVC.closeMenu()
+                            }
+            }
         case 5:
             print("5")
-            
+            if let mainPage = storyboard?.instantiateViewController(withIdentifier: "RecievedController") as?RecievedController{
+                navigationController?.pushViewController(mainPage, animated: true)
+                if let homeVC = self.presentingViewController as? TransactionsViewController {
+                                homeVC.closeMenu()
+                            }
+            }
         default:
             break
         }

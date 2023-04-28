@@ -11,14 +11,15 @@ final class UserModel{
     //let listRefresh = UIRefreshControl()
     var TransaRefresh:TransactionsViewController!
     var withdrawList:[withdrawsList] = []
-    var transactions:[Transaction] = []
+    //var transactions:[Transaction] = []
+    var transactions:[welcome2] = []
     var sentLists:[SentList] = []
     var depositList:[deposited] = []
     var recievedList:[Recieve] = []
     var eventHandler: ((_ event: Event) -> Void)?
     func fetchTransactions(){
         self.eventHandler?(.loading)
-        APIMANAGERS.shared.request(modalType: [Transaction].self, phoneNumber: "", type: UserEndpoint.transactionList){ [self] response in
+        APIMANAGERS.shared.request(modalType: [welcome2].self, phoneNumber: "", type: UserEndpoint.transactionList){ [self] response in
             self.eventHandler?(.stopLoading)
             switch response{
             case .success( let transactions):
@@ -28,6 +29,33 @@ final class UserModel{
                 self.eventHandler?(.error(error))
             }
         }
+    }
+    
+    func transList(){
+        let parameter = parameter()
+        guard let url = URL(string: APIURL.API.MList2) else{
+            return
+        }
+       var request = URLRequest(url: url)
+        do{
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = try? JSONSerialization.data(withJSONObject: parameter)
+            URLSession.shared.dataTask(with: request){ data,response,error in
+                if let error = error{
+                    print(error.localizedDescription)
+                }else{
+                    let jsonData = try? JSONDecoder().decode(welcome2.self, from: data!)
+                    print(jsonData)
+                }
+            }.resume()
+        }
+    }
+    
+    func parameter() ->[String:Any]{
+        var parameters = [String: Any]()
+        parameters["phone"] = "0716198487"
+        return parameters
     }
     func fetchSentList() {
         self.eventHandler?(.loading)

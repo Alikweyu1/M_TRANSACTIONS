@@ -14,7 +14,8 @@ class TransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var amount: UILabel!
     @IBOutlet weak var transactedTo: UILabel!
-    var transaction:Transaction?{
+    var transact:[welcome2]?
+    var transaction:welcome2?{
         didSet{
             transactionDetailConfiguration()
         }
@@ -38,11 +39,27 @@ class TransactionTableViewCell: UITableViewCell {
             
         }
         //
-        DispatchQueue.main.async {
-            self.transactedTo.text = transaction.name
-            self.amount.text = "Ksh\(transaction.amount)"
-            self.date.text = transaction.date
-            self.type.text = transaction.types.recieved?.phoneNumber
+        DispatchQueue.main.async { [self] in
+           print(transact)
+            self.transactedTo.text = "\(transaction.data2.totalExpense)"
+            /*
+            self.transactedTo.text = transaction.data[0].receiverAccount
+            if transaction.data[0].transactionType == "DEPOSIT" {
+                self.type.text = transaction.data[0].transactionType
+                self.date.text = transaction.data[0].transactionDate
+                self.amount.text = "transaction.data?.TransactionAmount"
+                self.transactedTo.text = transaction.data[0].receiverAccount
+            }else if transaction.data[2].transactionType == "WITHDRAW"{
+                self.type.text = transaction.data[0].transactionType
+                self.date.text = transaction.data[0].transactionDate
+            } else if transaction.data[0].transactionType == "SENDMONEY"{
+                self.type.text = transaction.data[0].transactionType
+                self.date.text = transaction.data[0].transactionDate
+            } else if transaction.data[0].transactionType == "LIPABILL"{
+                self.type.text = transaction.data[0].transactionType
+                self.date.text = transaction.data[0].transactionDate
+            }
+            */
         }
     }
     
